@@ -3,28 +3,32 @@ const addBtn = document.querySelector(".add-btn");
 const displayBtn = document.querySelector(".display-btn");
 const booksContainer = document.querySelector(".books-container");
 const removeBtn = document.querySelector(".remove-btn");
+const searchBtn = document.querySelector(".search-btn");
 
-addBtn.addEventListener("click", () => {
-  addBook();
-});
+addBtn.addEventListener("click", () =>
+  addBook(["title", "author", "yearOfPublication", "genre"])
+);
 
 displayBtn.addEventListener("click", () => {
   booksContainer.innerHTML = ""; // Make sure container is empty before displaying books
   displayBooks(books);
 });
 
-removeBtn.addEventListener("click", () => {
-  removeBook();
+removeBtn.addEventListener("click", () =>
+  removeBook(prompt("Enter the title of the book you want to remove"))
+);
+
+searchBtn.addEventListener("click", () => {
+  booksContainer.innerHTML = ""; // Make sure container is empty before displaying books
+  searchBooks(prompt("Enter the author or title of the book you want"));
 });
 
-function addBook() {
+function addBook(props) {
   let book = {};
-  let bookProps = ["title", "author", "yearOfPublication", "genre"];
-  bookProps.forEach((prop) => {
+  props.forEach((prop) => {
     book[prop] = prompt(`Enter book ${prop}`);
   });
   books.push(book);
-  // console.log(books);
 }
 
 function displayBooks(books) {
@@ -41,10 +45,8 @@ function displayBooks(books) {
 /**
  * Remove book by title
  */
-function removeBook() {
-  const title = prompt("Enter the title of the book you want to remove");
+function removeBook(title) {
   const bookTitles = books.map((book) => book.title.toLowerCase());
-
   if (bookTitles.includes(title.toLowerCase())) {
     books.forEach((book) => {
       if (book.title.toLowerCase() === title.toLowerCase()) {
@@ -54,5 +56,22 @@ function removeBook() {
     });
   } else {
     alert(`SORRY! There is no book titled "${title}" in our database.`);
+  }
+}
+
+/**
+ * Search books by author or title
+ */
+function searchBooks(searchString) {
+  // const searchString = prompt("Enter the author or title of the book you want");
+  const searchResult = books.filter(
+    (book) =>
+      book.title.toLowerCase() === searchString.toLowerCase() ||
+      book.author.toLowerCase() === searchString.toLowerCase()
+  );
+  if (searchResult.length > 0) {
+    displayBooks(searchResult);
+  } else {
+    alert(`SORRY!!! There is no author or title named "${searchString}"`);
   }
 }
