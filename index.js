@@ -24,7 +24,7 @@ function addBook() {
     book[prop] = prompt(`Enter book ${prop}`);
   });
   books.push(book);
-  console.log(books);
+  // console.log(books);
 }
 
 function displayBooks(books) {
@@ -43,11 +43,16 @@ function displayBooks(books) {
  */
 function removeBook() {
   const title = prompt("Enter the title of the book you want to remove");
-  books.forEach((book) => {
-    if (book.title.toLowerCase() === title.toLowerCase()) {
-      books.pop(book);
-      // return;
-    }
-  });
-  // alert(`There's no book titled "${title}"`);
+  const bookTitles = books.map((book) => book.title.toLowerCase());
+
+  if (bookTitles.includes(title.toLowerCase())) {
+    books.forEach((book) => {
+      if (book.title.toLowerCase() === title.toLowerCase()) {
+        books.splice(books.indexOf(book), 1);
+        return;
+      }
+    });
+  } else {
+    alert(`SORRY! There is no book titled "${title}" in our database.`);
+  }
 }
