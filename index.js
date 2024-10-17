@@ -62,7 +62,6 @@ function removeBook(title) {
  * Search books by author or title
  */
 function searchBooks(searchString) {
-  // const searchString = prompt("Enter the author or title of the book you want");
   const searchResult = books.filter(
     (book) =>
       book.title.toLowerCase() === searchString.toLowerCase() ||
