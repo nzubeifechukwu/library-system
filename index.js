@@ -10,7 +10,6 @@ addBtn.addEventListener("click", () =>
 );
 
 displayBtn.addEventListener("click", () => {
-  booksContainer.innerHTML = ""; // Make sure container is empty before displaying books
   displayBooks(books);
 });
 
@@ -19,7 +18,6 @@ removeBtn.addEventListener("click", () =>
 );
 
 searchBtn.addEventListener("click", () => {
-  booksContainer.innerHTML = ""; // Make sure container is empty before displaying books
   searchBooks(prompt("Enter the author or title of the book you want"));
 });
 
@@ -32,6 +30,7 @@ function addBook(props) {
 }
 
 function displayBooks(books) {
+  booksContainer.innerHTML = ""; // Make sure container is empty before displaying books
   books.forEach((book) => {
     const div = document.createElement("div");
     div.innerHTML = `<p><strong>Title:</strong> ${book["title"]}</p>
